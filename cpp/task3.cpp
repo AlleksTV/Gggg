@@ -1,32 +1,34 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-using namespace std;
+#include <iostream>  // подключаем библиотеку для ввода/вывода (cout)
+#include <cstdlib>   // подключаем библиотеку для rand() и srand()
+#include <ctime>     // подключаем библиотеку для time()
+using namespace std; // чтобы писать cout вместо std::cout
 
+// функция сортирует элементы между крайними отрицательными элементами
 void sortBetweenNegatives(int a[], int n) {
-    int left = -1, right = -1;
-    for (int i = 0; i < n; i++)
-        if (a[i] < 0) {
-            if (left == -1) left = i;
-            right = i;
+    int left = -1, right = -1;              // позиции левого и правого отрицательного (-1 = пока не найдено)
+    for (int i = 0; i < n; i++)             // проходим по всем элементам массива
+        if (a[i] < 0) {                     // если элемент отрицательный
+            if (left == -1) left = i;       // если левый ещё не найден - запоминаем его позицию
+            right = i;                      // каждый новый отрицательный становится самым правым
         }
-    cout << "Left: " << left << ", right: " << right << endl;
-    for (int i = left + 1; i < right; i++)
-        for (int j = left + 1; j < right - 1; j++)
-            if (a[j] > a[j + 1]) swap(a[j], a[j + 1]);
+    cout << "Left: " << left << ", right: " << right << endl; // выводим найденные позиции
+    for (int i = left + 1; i < right; i++)              // повторяем проходы сортировки пузырьком
+        for (int j = left + 1; j < right - 1; j++)      // идём по элементам между left и right
+            if (a[j] > a[j + 1]) swap(a[j], a[j + 1]);  // если соседи стоят неправильно - меняем местами
 }
 
+// функция выводит массив на экран
 void print(int a[], int n) {
-    for (int i = 0; i < n; i++) cout << a[i] << " ";
-    cout << endl;
+    for (int i = 0; i < n; i++) cout << a[i] << " "; // выводим каждый элемент через пробел
+    cout << endl;                                    // переходим на новую строку
 }
 
 int main() {
-    srand(time(0));
-    const int n = 10;
-    int a[n];
-    for (int i = 0; i < n; i++) a[i] = rand() % 41 - 20;
-    print(a, n);
-    sortBetweenNegatives(a, n);
-    print(a, n);
+    srand(time(0));                                         // инициализируем генератор случайных чисел текущим временем
+    const int n = 10;                                       // размер массива
+    int a[n];                                               // объявляем массив из n элементов
+    for (int i = 0; i < n; i++) a[i] = rand() % 41 - 20;    // заполняем случайными числами от -20 до +20
+    print(a, n);                                            // выводим исходный массив
+    sortBetweenNegatives(a, n);                             // сортируем элементы между крайними отрицательными
+    print(a, n);                                            // выводим массив после сортировки
 }
