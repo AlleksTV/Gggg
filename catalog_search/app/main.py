@@ -43,6 +43,12 @@ async def storefront():
     return FileResponse(STATIC_DIR / "index.html")
 
 
+@app.get("/simple", include_in_schema=False)
+async def simple_page():
+    """Простая версия витрины: тот же функционал, обычный вид."""
+    return FileResponse(STATIC_DIR / "simple" / "index.html")
+
+
 async def call(fn, *args, **kwargs):
     try:
         return await run_in_threadpool(fn, *args, **kwargs)

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Каталог маркетплейса</title>
+  <link rel="stylesheet" href="/static/simple/simple.css">
+</head>
+<body>
+  <header>
+    <h1>Каталог маркетплейса</h1>
+    <form id="search-form">
+      <input id="q" type="search" placeholder="Поиск по товарам" aria-label="Поиск по товарам">
+      <button type="submit">Найти</button>
+      <label>Сортировка
+        <select id="sort">
+          <option value="relevance">по релевантности</option>
+          <option value="price_asc">сначала дешевле</option>
+          <option value="price_desc">сначала дороже</option>
+          <option value="name">по названию</option>
+        </select>
+      </label>
+    </form>
+  </header>
+
+  <div class="layout">
+    <aside>
+      <h2>Категории</h2>
+      <ul id="tree" class="tree"></ul>
+
+      <h2>Фильтры</h2>
+      <label><input type="checkbox" id="in-stock"> Только в наличии</label>
+      <fieldset>
+        <legend>Цена, ₽</legend>
+        <input type="number" id="price-min" placeholder="от" min="0" aria-label="Цена от">
+        <input type="number" id="price-max" placeholder="до" min="0" aria-label="Цена до">
+        <button type="button" id="price-apply">Применить</button>
+      </fieldset>
+      <div id="facets"></div>
+      <button type="button" id="reset">Сбросить фильтры</button>
+    </aside>
+
+    <main>
+      <p id="crumbs" class="crumbs"></p>
+      <p id="summary"></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Товар</th><th>Бренд</th><th>Категория</th>
+            <th>Цена, ₽</th><th>Вариантов</th><th>Релевантность</th>
+          </tr>
+        </thead>
+        <tbody id="results"></tbody>
+      </table>
+
+      <section id="product" hidden></section>
+    </main>
+  </div>
+
+  <script src="/static/simple/simple.js"></script>
+</body>
+</html>
