@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VOLTAZH — неоновый маркетплейс</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/" aria-label="VOLTAZH, на главную">
+      <span class="brand-word" data-text="VOLTAZH">VOLTAZH</span>
+      <span class="brand-sub">ночной маркетплейс</span>
+    </a>
+
+    <form class="scanner" role="search" id="search-form">
+      <label class="visually-hidden" for="q">Поиск по каталогу</label>
+      <input id="q" name="q" type="search" autocomplete="off"
+             placeholder="Что ищем? Например: смарт-пистолет, белые кроссовки">
+      <span class="scanner-readout" id="readout" aria-live="polite"></span>
+    </form>
+
+    <div class="sort">
+      <label for="sort">Сортировка</label>
+      <select id="sort">
+        <option value="relevance">По совпадению</option>
+        <option value="price_asc">Сначала дешевле</option>
+        <option value="price_desc">Сначала дороже</option>
+        <option value="name">По названию</option>
+      </select>
+    </div>
+    <button class="filters-toggle" id="filters-toggle" type="button" aria-controls="side" aria-expanded="false">
+      Категории и фильтры
+    </button>
+  </header>
+
+  <div class="layout">
+    <aside class="side" id="side">
+      <nav aria-label="Категории">
+        <h2 class="side-title">Категории</h2>
+        <ul class="tree" id="tree"></ul>
+      </nav>
+
+      <section aria-label="Фильтры" id="facets-wrap">
+        <div class="side-head">
+          <h2 class="side-title">Фильтры</h2>
+          <button type="button" class="link-btn" id="reset-filters" hidden>Сбросить</button>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="in-stock">
+          <span>Только в наличии</span>
+        </label>
+        <fieldset class="facet" id="price-facet">
+          <legend>Цена, ₽</legend>
+          <div class="price-row">
+            <input type="number" id="price-min" inputmode="numeric" min="0" aria-label="Цена от">
+            <span aria-hidden="true">–</span>
+            <input type="number" id="price-max" inputmode="numeric" min="0" aria-label="Цена до">
+          </div>
+        </fieldset>
+        <div id="facets"></div>
+      </section>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="crumbs-row">
+        <ol class="crumbs" id="crumbs" aria-label="Путь по категориям"></ol>
+      </div>
+      <div class="grid" id="grid" aria-live="polite"></div>
+      <p class="empty" id="empty" hidden></p>
+      <button type="button" class="more" id="more" hidden>Показать ещё</button>
+    </main>
+  </div>
+
+  <div class="drawer-backdrop" id="backdrop" hidden></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+    <button type="button" class="drawer-close" id="drawer-close" aria-label="Закрыть карточку товара">✕</button>
+    <div id="drawer-body"></div>
+  </aside>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

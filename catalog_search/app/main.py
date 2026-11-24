@@ -1,8 +1,11 @@
 """REST API (FastAPI). Swagger открывается по адресу http://127.0.0.1:8000/docs"""
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import Annotated
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.concurrency import run_in_threadpool
 from pydantic import BaseModel, Field
 from sqlalchemy import inspect
@@ -28,6 +31,16 @@ app = FastAPI(
                 "СУБД: SQLite.",
     lifespan=lifespan,
 )
+
+
+STATIC_DIR = Path(__file__).parent / "static"
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+@app.get("/", include_in_schema=False)
+async def storefront():
+    """Неоновая витрина магазина (HTML-страница поверх этого же API)."""
+    return FileResponse(STATIC_DIR / "index.html")
 
 
 async def call(fn, *args, **kwargs):

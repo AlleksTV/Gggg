@@ -176,6 +176,9 @@ def test_product_card():
 def test_api():
     with TestClient(app) as client:
         assert client.get("/categories/tree").status_code == 200
+        page = client.get("/")
+        assert page.status_code == 200 and "VOLTAZH" in page.text
+        assert client.get("/static/app.js").status_code == 200
         r = client.get("/search", params=[("q", "ноутбук"), ("f", "ram:16"), ("f", "ram:32"),
                                           ("brand", "Lenovo"), ("sort", "price_asc")])
         assert r.status_code == 200, r.text
