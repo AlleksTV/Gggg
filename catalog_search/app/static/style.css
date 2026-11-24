@@ -227,9 +227,7 @@ button, input, select { font: inherit; color: inherit; }
   border: 0; text-align: left; cursor: pointer;
   color: var(--text);
 }
-.card:hover, .card[hidden] { display: none !important; }
-
-:focus-visible { background: linear-gradient(135deg, var(--pink), var(--cyan)); outline: none; }
+.card:hover, .card:focus-visible { background: linear-gradient(135deg, var(--pink), var(--cyan)); outline: none; }
 .card-inner {
   display: flex; flex-direction: column; height: 100%;
   background: var(--panel);
